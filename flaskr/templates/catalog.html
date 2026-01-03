@@ -1,0 +1,9 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% for book in catalog %}
+        <a href="{{ url_for('catalog.book', book_id=book.id) }}"><h3>{{ book.name }}</h3></a>
+    {% endfor %}
+</body>
