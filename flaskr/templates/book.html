@@ -1,0 +1,10 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h3>{{ book.name }}</h3>
+    <p>Автор: {{ book.author }}</p>
+    <p>Год издания: {{ book.year }}</p>
+    <a href="{{ url_for('catalog.book', book_id=book.id) }}"></a>
+</body>
