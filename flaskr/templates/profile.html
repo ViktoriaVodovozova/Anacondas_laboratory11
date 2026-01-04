@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+</head>
+<body>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <h1>Профиль пользователя</h1>
+
+    <p><strong>Никнейм:</strong> {{ username }}</p>
+    <p><strong>Почта:</strong> {{ email }}</p>
+    <p><strong>Возраст:</strong> {{ age }}</p>
+    <p><strong>Любимый жанр:</strong> {{ favorite_genre }}</p>
+
+    <p>
+        <a href="{{ url_for('catalog') }}">→ Перейти в личный каталог книг</a>
+    </p>
+</body>
+</html>

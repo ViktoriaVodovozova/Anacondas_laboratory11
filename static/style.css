@@ -1,0 +1,21 @@
+ul#navigation {
+  list-style-type: none;  
+  padding: 0;
+  display: flex;
+  justify-content: space-around; 
+  background-color: #ffdcc1;
+  text-decoration: none;
+}
+
+ul#main_page {
+  color: rgb(220, 137, 255);
+  list-style-type: none;  
+  padding: 0;
+  display: flex;
+  justify-content: space-around; 
+  text-decoration: none;
+}
+
+a {
+    text-transform: capitalize;
+}

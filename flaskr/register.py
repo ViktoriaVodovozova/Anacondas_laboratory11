@@ -12,7 +12,9 @@ def register() -> str | Response:
     email = request.form['email']
     nickname = request.form['nickname']
     password = request.form['password']
-    user = User(email=email, nickname=nickname, password=password)
+    age = request.form['age']
+    favorite_genre = request.form['favorite_genre']
+    user = User(email=email, nickname=nickname, password=password, age=age, favorite_genre=favorite_genre)
 
     # TODO session['user_id'] = user.id
 
