@@ -1,16 +1,43 @@
 <!doctype html>
+<html>
 <head>
     <meta charset="UTF-8">
+    <title>Регистрация</title>
 </head>
 <body>
     <h1>Регистрация</h1>
+
     <form method="post">
-        <label for="email">Почта</label>
-        <input name="email" id="email" required>
-        <label for="nickname">Никнейм</label>
-        <input name="nickname" id="nickname" required>
-        <label for="password">Пароль</label>
-        <input name="password" id="password" required>
-        <input type="submit" value="Зарегестрироваться">
+        <div>
+            <label for="email"><strong>Email:</strong></label><br>
+            <input type="email" name="email" id="email" required><br><br>
+        </div>
+
+        <div>
+            <label for="password"><strong>Пароль:</strong></label><br>
+            <input type="password" name="password" id="password" required><br><br>
+        </div>
+
+        <div>
+            <label for="nickname"><strong>Никнейм:</strong></label><br>
+            <input type="text" name="nickname" id="nickname" required><br><br>
+        </div>
+
+        <div>
+            <label for="age"><strong>Возраст:</strong></label><br>
+            <input type="number" name="age" id="age" min="10" max="120" required><br><br>
+        </div>
+
+        <div>
+            <label for="genre"><strong>Любимый жанр:</strong></label><br>
+            <input type="text" name="favorite_genre" id="genre" placeholder="например: фантастика" required><br><br>
+        </div>
+
+        <div>
+            <input type="submit" value="Зарегистрироваться">
+        </div>
     </form>
+
+    <p><a href="{{ url_for('home.home') }}">← На главную</a></p>
 </body>
+</html>

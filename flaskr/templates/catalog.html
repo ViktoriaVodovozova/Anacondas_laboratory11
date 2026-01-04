@@ -1,9 +1,11 @@
 <!doctype html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    {% include 'menu.html' %}
     {% for book in catalog %}
-        <a href="{{ url_for('catalog.book', book_id=book.id) }}"><h3>{{ book.name }}</h3></a>
+        <a href="{{ url_for('book', book_id=book.id) }}"><h3>{{ book.name }}</h3></a>
     {% endfor %}
 </body>
