@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <h1>Профиль пользователя</h1>
 
     <p><strong>Никнейм:</strong> {{ username }}</p>
@@ -13,8 +13,57 @@
     <p><strong>Возраст:</strong> {{ age }}</p>
     <p><strong>Любимый жанр:</strong> {{ favorite_genre }}</p>
 
+    <hr>
+
+    <h2>Мои книги</h2>
+    {% if user_books %}
+        <table id="user-catalog">
+            <thead>
+                <tr>
+                    <th>Название книги</th>
+                    <th>Автор</th>
+                    <th>Оценка</th>
+                    <th>Отзыв</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ub in user_books %}
+                    {% set book = get_book(ub.book_id) %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>
+                            {% if ub.rating %}
+                                {{ ub.rating }}/5
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if ub.review %}
+                                {{ ub.review }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ url_for('home.update_user_book', user_book_id=ub.user_id, book_id=ub.book_id) }}">
+                                <input type="number" name="rating" min="1" max="5" value="{{ ub.rating or '' }}" placeholder="1-5">
+                                <textarea name="review" rows="2" placeholder="Ваш отзыв">{{ ub.review or '' }}</textarea>
+                                <button type="submit">Сохранить</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>У вас пока нет книг в каталоге. Зайдите в <a href="{{ url_for('catalog.catalog') }}">каталог</a> и добавьте первую!</p>
+    {% endif %}
+
     <p>
-        <a href="{{ url_for('catalog.catalog') }}">Catalog</a>
+        <a href="{{ url_for('catalog.catalog') }}">К общему каталогу</a>
     </p>
 </body>
 </html>

@@ -7,8 +7,17 @@
     <h3>{{ book.name }}</h3>
     <p>Автор: {{ book.author }}</p>
     <p>Год издания: {{ book.year }}</p>
-    <p>Год издания: {{ book.year }}</p>
     <p>Жанр: {{ book.genre }}</p>
     <p>Аннотация: {{ book.annotation }}</p>
+
+    <!-- Кнопка "Добавить в мой каталог" -->
+    {% if 'user' in session %}
+        <form method="POST" action="{{ url_for('home.add_book_to_profile', book_id=book.id) }}">
+            <button type="submit">Добавить в мой каталог</button>
+        </form>
+    {% else %}
+        <p><a href="{{ url_for('register.register') }}">Зарегистрируйтесь</a>, чтобы добавлять книги в свой каталог.</p>
+    {% endif %}
+
     <a href="{{ url_for('catalog.catalog') }}">Catalog</a>
 </body>

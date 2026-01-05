@@ -25,6 +25,7 @@ def register() -> str | Response:
     db = get_db()
     user = User(email=email, nickname=nickname, password=password, age=age, favorite_genre=favorite_genre)
     db.add_user(user)
+    session['user_id'] = user.id
     # TODO session['user_id'] = user.id
 
     return redirect(url_for('home.home'))
