@@ -1,12 +1,11 @@
-from dataclasses import dataclass, field
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Integer
+from flaskr.db import Base
 
-@dataclass
-class User:
-    email: str
-    nickname: str
-    password: str
-    id: int = field(init=False)
-    _id_counter: int = field(init=False, default=1, repr=False)
-    def __post_init__(self):
-        self.id = User._id_counter
-        User._id_counter += 1
+class User(Base):
+    __tablename__ = 'users'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(String(30), unique=True)
+    nickname: Mapped[str] = mapped_column(String(30))
+    password: Mapped[str] = mapped_column(String(150))  # it should be hash
