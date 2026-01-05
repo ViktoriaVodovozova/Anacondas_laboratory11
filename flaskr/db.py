@@ -3,7 +3,7 @@ from flaskr.models.book import Book
 from flask import g, Flask, current_app
 import click
 from typing import Iterable
-
+from flaskr.models.userbook import UserBook
 _db = None
 
 class DataBase:
@@ -72,6 +72,25 @@ def init_db_in_app(app: Flask):
     _db = DataBase()
     _db.init_db()
     app.db = _db
+
+def __init__(self):
+    self._users: list[User] = []
+    self._catalog: list[Book] = []
+    self._user_books: list[UserBook] = []  # ← новое поле
+
+def add_user_book(self, user_book: UserBook) -> None:
+    self._user_books.append(user_book)
+
+def get_user_books_by_user_id(self, user_id: int) -> list[UserBook]:
+    return [ub for ub in self._user_books if ub.user_id == user_id]
+
+def get_user_book(self, user_id: int, book_id: int) -> UserBook | None:
+    for ub in self._user_books:
+        if ub.user_id == user_id and ub.book_id == book_id:
+            return ub
+    return None
+
+
 
     # Use code below with real DB
     # app.teardown_appcontext(close_db)

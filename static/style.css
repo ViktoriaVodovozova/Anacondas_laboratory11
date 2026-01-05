@@ -1,18 +1,20 @@
+/* === ТВОИ ОРИГИНАЛЬНЫЕ СТИЛИ (сохранены без изменений) === */
+
 ul#navigation {
-  list-style-type: none;  
+  list-style-type: none;
   padding: 0;
   display: flex;
-  justify-content: space-around; 
+  justify-content: space-around;
   background-color: #ffdcc1;
   text-decoration: none;
 }
 
 ul#main_page {
   color: rgb(220, 137, 255);
-  list-style-type: none;  
+  list-style-type: none;
   padding: 0;
   display: flex;
-  justify-content: space-around; 
+  justify-content: space-around;
   text-decoration: none;
 }
 
@@ -20,10 +22,176 @@ a {
     text-transform: capitalize;
 }
 
-
 table#catalog {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     font-family: Arial, sans-serif;
+}
+
+/* === ДОПОЛНЕНИЯ: чтобы всё выглядело гармонично и работало на всех страницах === */
+
+/* Общие улучшения */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fffefc; /* очень светлый бежевый, под стать #ffdcc1 */
+}
+
+h1, h2, h3 {
+    margin: 16px 0;
+    color: #5a3d31; /* тёплый коричневый, чтобы сочетался с оранжевым */
+}
+
+p, div, form {
+    margin-bottom: 16px;
+}
+
+/* Ссылки: сохранили capitalize, но сделали их кликабельными и красивыми */
+a {
+    color: rgb(220, 137, 255); /* твой розовый цвет */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Навигация: убираем маркеры у li и стилизуем пункты */
+ul#navigation li {
+    list-style: none;
+}
+ul#navigation a {
+    display: block;
+    padding: 12px 16px;
+    color: #5a3d31;
+    font-weight: bold;
+    text-align: center;
+}
+ul#navigation a:hover {
+    background-color: #ffc9a8;
+    border-radius: 4px;
+}
+
+/* Главная страница: убираем маркеры у li */
+ul#main_page li {
+    list-style: none;
+}
+
+/* Таблица общего каталога — улучшаем читаемость */
+table#catalog th,
+table#catalog td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+table#catalog th {
+    background-color: #ffe9d6;
+    font-weight: bold;
+}
+table#catalog tr:hover {
+    background-color: #fff5ee;
+}
+
+/* === НОВОЕ: Стили для личного каталога в профиле === */
+table#user-catalog {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+table#user-catalog th,
+table#user-catalog td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ffe9d6;
+}
+
+table#user-catalog th {
+    background-color: #ffdcc1;
+    font-weight: bold;
+}
+
+/* Поля ввода и кнопки в профиле */
+#user-catalog input[type="number"],
+#user-catalog textarea {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+#user-catalog button {
+    background-color: #5a3d31;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-top: 4px;
+}
+
+#user-catalog button:hover {
+    background-color: #442e24;
+}
+
+/* === НОВОЕ: Стили для формы регистрации === */
+form label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #5a3d31;
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+}
+
+form input[type="submit"] {
+    background-color: #5a3d31;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+form input[type="submit"]:hover {
+    background-color: #442e24;
+}
+
+/* === НОВОЕ: Кнопка "Добавить в мой каталог" на странице книги === */
+form button[type="submit"] {
+    background-color: #ff6b35; /* тёплый оранжевый, сочетается с #ffdcc1 */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e05a2b;
+}
+
+/* Разделитель в профиле */
+hr {
+    margin: 24px 0;
+    border: 0;
+    border-top: 1px solid #ffe9d6;
 }
