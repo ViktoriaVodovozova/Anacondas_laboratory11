@@ -20,7 +20,7 @@ class UserModelTests(unittest.TestCase):
         self.user_start_id = 1
 
     def tearDown(self):
-        db = self.app.extensions.pop('db')
+        db: SQLAlchemy = self.app.extensions.pop('db')
         with self.app.app_context():
             db.session.remove()
             db.drop_all()

@@ -8,4 +8,4 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(30), unique=True)
     nickname: Mapped[str] = mapped_column(String(30))
-    password: Mapped[str] = mapped_column(String(150))  # it should be hash
+    password: Mapped[str] = mapped_column(String(200))  # it should be hash
