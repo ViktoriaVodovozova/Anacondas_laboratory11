@@ -1,13 +1,11 @@
-<!doctype html>
-<head>
-    <meta charset="UTF-8">
-    <title>Anaconda's library</title>
+{% extends 'base.html' %}
 
-</head>
-<body>
-    <p>Добро пожаловать в <strong>Anaconda's library</strong> - первую в вебе библиотеку, где книги ищут не черви, а змеи</p>
-    <ul, id = 'main_page'> 
-        <a href="{{ url_for('home.profile') }}">Profile</a>
-        <li><a href="{{ url_for('catalog.catalog') }}">Catalog</a></li>
-    </ul>
-</body>
+{% block title %}Anaconda's library{% endblock %}
+
+{% block content %}
+<p>Добро пожаловать в <strong>Anaconda's library</strong> - первую в вебе библиотеку, где книги ищут не черви, а змеи</p>
+<ul id="main_page">
+    <li><a href="{{ url_for('home.profile') }}">Профиль</a></li>
+    <li><a href="{{ url_for('catalog.catalog') }}">Каталог</a></li>
+</ul>
+{% endblock %}
