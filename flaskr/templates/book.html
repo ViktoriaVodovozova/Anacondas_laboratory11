@@ -1,23 +1,22 @@
-<!doctype html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h3>{{ book.name }}</h3>
-    <p>Автор: {{ book.author }}</p>
-    <p>Год издания: {{ book.year }}</p>
-    <p>Жанр: {{ book.genre }}</p>
-    <p>Аннотация: {{ book.annotation }}</p>
+{% extends 'base.html' %}
 
-    <!-- Кнопка "Добавить в мой каталог" -->
-    {% if 'user' in session %}
-        <form method="POST" action="{{ url_for('home.add_book_to_profile', book_id=book.id) }}">
-            <button type="submit">Добавить в мой каталог</button>
-        </form>
-    {% else %}
-        <p><a href="{{ url_for('register.register') }}">Зарегистрируйтесь</a>, чтобы добавлять книги в свой каталог.</p>
-    {% endif %}
+{% block title %}{{ book.name }}{% endblock %}
 
-    <a href="{{ url_for('catalog.catalog') }}">Catalog</a>
-</body>
+{% block content %}
+<h3>{{ book.name }}</h3>
+<p>Автор: {{ book.author }}</p>
+<p>Год издания: {{ book.year }}</p>
+<p>Жанр: {{ book.genre }}</p>
+<p>{{ book.annotation }}</p>
+
+<!-- Кнопка "Добавить в мой каталог" -->
+{% if 'user' in session %}
+<form method="POST" action="{{ url_for('catalog.add_user_book', book_id=book.id) }}"> <!-- TODO -->
+    <button type="submit">Добавить в мой каталог</button>
+</form>
+{% else %}
+    <p><a href="{{ url_for('register.register') }}">Зарегистрируйтесь</a>, чтобы добавлять книги в свой каталог.</p>
+{% endif %}
+
+<a href="{{ url_for('catalog.catalog') }}">← К общему каталогу</a>
+{% endblock %}

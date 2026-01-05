@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Anaconda's library{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <ul id="navigation">
+            <li><a href="{{ url_for('home.home') }}">Главная</a></li>
+            <li><a href="{{ url_for('catalog.catalog') }}">Каталог</a></li>
+            <li><a href="{{ url_for('home.profile') }}">Профиль</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
