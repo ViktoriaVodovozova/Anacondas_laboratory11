@@ -7,7 +7,7 @@
 <body>
     <p>Добро пожаловать в <strong>Anaconda's library</strong> - первую в вебе библиотеку, где книги ищут не черви, а змеи</p>
     <ul, id = 'main_page'> 
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/catalog">Catalog</a></li>
+        <a href="{{ url_for('home.profile') }}">Profile</a>
+        <li><a href="{{ url_for('catalog.catalog') }}">Catalog</a></li>
     </ul>
 </body>

@@ -19,3 +19,11 @@ ul#main_page {
 a {
     text-transform: capitalize;
 }
+
+
+table#catalog {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
