@@ -5,7 +5,24 @@
 </head>
 <body>
     {% include 'menu.html' %}
-    {% for book in catalog %}
-        <a href="{{ url_for('book', book_id=book.id) }}"><h3>{{ book.name }}</h3></a>
-    {% endfor %}
+    <table id = 'catalog'>
+        <thead>
+            <tr>
+                <th>Название книги</th>
+                <th>Автор</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in catalog %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('catalog.book', book_id=book.id) }}">
+                            {{ book.name }}
+                        </a>
+                    </td>
+                    <td>{{ book.author }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
