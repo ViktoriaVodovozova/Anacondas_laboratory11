@@ -17,7 +17,6 @@ class UserModelTests(unittest.TestCase):
             db.create_all()
         app.extensions['db'] = db
         self.app = app
-        self.user_start_id = 1
 
     def tearDown(self):
         db = self.app.extensions.pop('db')
@@ -31,10 +30,10 @@ class UserModelTests(unittest.TestCase):
         with self.app.app_context():
             db.session.add(user)
             db.session.commit()
-
-            stmt = select(User).where(User.id == self.user_start_id)
+            db.session.remove()
+        with self.app.app_context():
+            stmt = select(User).where(User.id == 1)
             fetched_user = db.session.scalar(stmt)
-
             self.assertEqual(fetched_user.nickname, 'user')
 
     def test_add_fetch_users(self):
@@ -48,8 +47,9 @@ class UserModelTests(unittest.TestCase):
         with self.app.app_context():
             db.session.add_all(users)
             db.session.commit()
-
-            stmt_by_id = select(User).where(User.id == self.user_start_id + 2)
+            db.session.remove()
+        with self.app.app_context():
+            stmt_by_id = select(User).where(User.id == 3)
             stmt_by_email = select(User).where(User.email == 'user3@email.com')
 
             fetched_by_id_user3 = db.session.scalar(stmt_by_id)
