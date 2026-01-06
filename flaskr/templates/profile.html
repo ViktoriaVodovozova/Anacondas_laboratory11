@@ -5,10 +5,10 @@
 {% block content %}
 <h1>Профиль пользователя</h1>
 
-<p><strong>Никнейм:</strong> {{ username }}</p>
+<p><strong>Никнейм:</strong> {{ nickname }}</p>
 <p><strong>Почта:</strong> {{ email }}</p>
-<p><strong>Возраст:</strong> {{ age }}</p>
-<p><strong>Любимый жанр:</strong> {{ favorite_genre }}</p>
+<p><strong>Возраст:</strong> {{ age or '-' }}</p>
+<p><strong>Любимый жанр:</strong> {{ favorite_genre or '-' }}</p>
 
 <hr>
 
