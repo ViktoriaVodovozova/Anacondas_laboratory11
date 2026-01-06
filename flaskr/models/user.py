@@ -6,6 +6,6 @@ class User(Base):
     __tablename__ = 'users'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    email: Mapped[str] = mapped_column(String(30), unique=True)
-    nickname: Mapped[str] = mapped_column(String(30))
-    password: Mapped[str] = mapped_column(String(200))  # it should be hash
+    email: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
+    nickname: Mapped[str] = mapped_column(String(30), nullable=False)
+    password: Mapped[str] = mapped_column(String(150), nullable=False)  # it should be hash
