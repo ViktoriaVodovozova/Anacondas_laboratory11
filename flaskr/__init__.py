@@ -1,6 +1,5 @@
 import os.path
 from flask import Flask, redirect, url_for, Response
-from flaskr.db import init_db_in_app
 
 def create_app() -> Flask:
     app = Flask(__name__, instance_relative_config=True)
@@ -12,15 +11,16 @@ def create_app() -> Flask:
 
     from . import (
         db as dbc,
-        home, register, catalog
+        home, register, catalog, profile
     )
     db = dbc.create_db()
     db.init_app(app)
     app.register_blueprint(home.bp)
     app.register_blueprint(register.bp)
     app.register_blueprint(catalog.bp)
+    app.register_blueprint(profile.bp)
     app.extensions['db'] = db
-    init_db_in_app(app)
+    dbc.init_db_in_app(app)
 
     @app.route('/')
     def base() -> Response:
