@@ -14,13 +14,13 @@ def profile(user_id: int) -> str:
     user = db.session.get_one(User, user_id)
     stmt = (
         select(
-            Book.name, Book.author,
+            Book.id, Book.name, Book.author,
             UserBook.rating, UserBook.review
         )
         .join(UserBook, UserBook.book_id == Book.id)
         .where(UserBook.user_id == user_id)
     )
-    user_books = db.session.scalars(stmt).all()
+    user_books = db.session.execute(stmt).all()
     return render_template('profile.html',
                            email=user.email,
                            nickname=user.nickname,

@@ -10,8 +10,8 @@
 <p>{{ book.annotation }}</p>
 
 <!-- Кнопка "Добавить в мой каталог" -->
-{% if 'user' in session %}
-<form method="POST" action="{{ url_for('catalog.add_user_book', book_id=book.id) }}"> <!-- TODO -->
+{% if 'user_id' in session %}
+<form method="POST" action="{{ url_for('catalog.add_book', book_id=book.id) }}">
     <button type="submit">Добавить в мой каталог</button>
 </form>
 {% else %}

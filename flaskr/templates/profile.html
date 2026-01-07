@@ -25,30 +25,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for user_book in user_books %}
+            {% for book in user_books %}
                 <tr>
-                    <td>{{ user_book.book.name }}</td>
-                    <td>{{ user_book.book.author }}</td>
+                    <td>{{ book.name }}</td>
+                    <td>{{ author }}</td>
                     <td>
-                        {% if user_book.rating %}
-                            {{ user_book.rating }}/5
+                        {% if book.rating %}
+                            {{ book.rating }}/5
                         {% else %}
                             —
                         {% endif %}
                     </td>
                     <td>
-                        {% if user_book.review %}
-                            {{ user_book.review }}
+                        {% if book.review %}
+                            {{ book.review }}
                         {% else %}
                             —
                         {% endif %}
                     </td>
                     <td>
-                        <form method="POST" action="{{ url_for('profile.update_book', user_book_id=user_book.id) }}">
+                        <form method="POST" action="{{ url_for('profile.update_book', user_id=session['user_id'], book_id=book.id) }}">
                             <input type="number" name="rating" min="1" max="5"
-                                   value="{{ user_book.rating or '' }}" placeholder="1-5">
+                                   value="{{ book.rating or '' }}" placeholder="1-5">
                             <textarea name="review" rows="2"
-                                      placeholder="Ваш отзыв">{{ user_book.review or '' }}</textarea>
+                                      placeholder="Ваш отзыв">{{ book.review or '' }}</textarea>
                             <button type="submit">Сохранить</button>
                         </form>
                     </td>

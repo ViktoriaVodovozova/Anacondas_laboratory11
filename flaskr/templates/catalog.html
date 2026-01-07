@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for book in books %}
+        {% for book in catalog %}
             <tr>
                 <td><a href="{{ url_for('catalog.book', book_id=book.id) }}">{{ book.name }}</a></td>
                 <td>{{ book.author }}</td>

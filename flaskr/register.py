@@ -14,9 +14,7 @@ def register() -> str | Response:
     nickname = request.form['nickname']
     password = request.form['password']
     user = User(email=email, nickname=nickname, password=generate_password_hash(password))
-
-    # TODO session['user_id'] = user.id
-
     db.session.add(user)
     db.session.commit()
+    session['user_id'] = user.id
     return redirect(url_for('home.home'))
