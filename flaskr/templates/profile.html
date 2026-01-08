@@ -3,62 +3,202 @@
 {% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
-<h1>Профиль пользователя</h1>
+<div class="container" style="margin: 32px auto;">
+    <div class="d-grid gap-5 d-flex-column justify-content-between" style="grid-template-columns: 40% 50%;">
+        <div class="card-header mb-0 px-2 border border-4 border-snake-dark-green d-flex align-items-center justify-content-center bg-snake-green text-center text-white" style="border-radius: 10px;">
+            <h1 class="h3 fw-semibold mb-0">Профиль пользователя</h1>
+        </div>
+        <div class="d-flex flex-column gap-4 mb-0" style="font-size: 1.1rem">
+            <div class="d-flex border border-2 border-snake-green rounded py-2 px-4">
+                <div class="fw-medium" style="flex: 0 0 50%">e-mail</div>
+                <div class="mb-0 flex-grow-1">{{ email }}</div>
+            </div>
+            <div class="d-flex border border-2 border-snake-yellow rounded py-2 px-4">
+                <div class="fw-medium" style="flex: 0 0 50%">Никнэйм</div>
+                <div class="mb-0 flex-grow-1">{{ nickname }}</div>
+            </div>
+            <div class="d-flex border border-2 border-snake-green rounded py-2 px-4">
+                <div class="fw-medium " style="flex: 0 0 50%">Возраст</div>
+                <div class="mb-0 flex-grow-1">{{ age or '---' }}</div>
+            </div>
+            <div class="d-flex border border-2 border-snake-yellow rounded py-2 px-4">
+                <div class="fw-medium" style="flex: 0 0 50%">Любимый жанр</div>
+                <div class="mb-0 flex-grow-1">{{ genre or '---' }}</div>
+            </div>
+        </div>
+    </div>
 
-<p><strong>Никнейм:</strong> {{ nickname }}</p>
-<p><strong>Почта:</strong> {{ email }}</p>
-<p><strong>Возраст:</strong> {{ age or '-' }}</p>
-<p><strong>Любимый жанр:</strong> {{ favorite_genre or '-' }}</p>
+    <div class="my-5 d-flex justify-content-start">
+        <a href="{{ url_for('home.home') }}" class="btn btn-snake btn-lg fw-medium shadow-lg" style="width: 40%">
+            На главную
+        </a>
+    </div>
 
-<hr>
+    <section class="mb-5">
+        <header class="border-bottom border-3 pb-2 mb-4">
+            <h2 class="class h3 fw-semibold text-snake d-flex align-items-center">
+                Личный каталог
+            </h2>
+        </header>
+        {% if user_books %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle table-striped">
+                    <thead class="table-snake text-white fs-6">
+                        <tr>
+                            <th style="width: 20%;">Название книги</th>
+                            <th style="width: 20%;">Автор</th>
+                            <th style="width: 15%;">Оценка</th>
+                            <th style="width: 35%;">Отзыв</th>
+                            <th style="width: 10%;">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in user_books %}
+                            <tr class>
+                                <td class="fs-6">{{ book.name }}</td>
+                                <td class="fs-6">{{ book.author }}</td>
+                                <td>
+                                    {% if book.rating %}
+                                        <div class="d-flex align-items-center">
+                                            <span class="badge bg-snake-yellow text-dark fs-6 p-2 me-2" style="min-width: 40px;">
+                                                {{ book.rating }}/5
+                                            </span>
+                                        </div>
+                                    {% else %}
+                                        <span class="text-muted fs-6">Не оценено</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div style="max-height: 80px; overflow-y: auto; line-height: 1.5;">
+                                        {% if book.review %}
+                                            {{ book.review }}
+                                        {% else %}
+                                            <span class="text-muted fs-6">Отзыв отсутствует</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-sm btn-outline-snake"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#edit_book{{ book.id }}">
+                                            Изменить
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger delete-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#delete_book{{ book.id }}">
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="card border-dashed border-2 bg-light-subtle rounded-4">
+                <div class="card-body text-center py-5">
+                    <p class="mb-3 fs-4 fw-medium">Ваша библиотека пуста</p>
+                    <p class="lead text-muted mb-4 fs-5">У вас пока нет книг в каталоге</p>
+                    <a href="{{ url_for('catalog.catalog') }}" class="btn btn-snake btn-lg px-5 py-3 fw-medium shadow-lg">
+                        Перейти в каталог и добавить первую книгу
+                    </a>
+                    <div class="mt-4 text-muted">
+                        Добавьте книгу в свой профиль, чтобы начать оставлять оценки и отзывы
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+</div>
 
-<h2>Мои книги</h2>
 {% if user_books %}
-    <table id="user-catalog">
-        <thead>
-            <tr>
-                <th>Название книги</th>
-                <th>Автор</th>
-                <th>Оценка</th>
-                <th>Отзыв</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in user_books %}
-                <tr>
-                    <td>{{ book.name }}</td>
-                    <td>{{ author }}</td>
-                    <td>
-                        {% if book.rating %}
-                            {{ book.rating }}/5
-                        {% else %}
-                            —
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if book.review %}
-                            {{ book.review }}
-                        {% else %}
-                            —
-                        {% endif %}
-                    </td>
-                    <td>
-                        <form method="POST" action="{{ url_for('profile.update_book', user_id=session['user_id'], book_id=book.id) }}">
-                            <input type="number" name="rating" min="1" max="5"
-                                   value="{{ book.rating or '' }}" placeholder="1-5">
-                            <textarea name="review" rows="2"
-                                      placeholder="Ваш отзыв">{{ book.review or '' }}</textarea>
-                            <button type="submit">Сохранить</button>
+    {% for book in user_books %}
+        <div class="modal fade" id="edit_book{{ book.id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-snake-green text-white">
+                        <h5 class="modal-title">Редактировать книгу <i>"{{ book.name }}"</i></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('profile.update_book', user_id=user_id, book_id=book.id) }}">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Оценка</label>
+                                <input type="number" name="rating" class="form-control form-control-lg text-center"
+                                       style="font-size: 0.95rem"
+                                       min="1" max="10" value="{{ book.rating or '' }}" placeholder="1-10">
+                                <div class="form-text text-muted">
+                                    Поставьте оценку от 1 до 10.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Отзыв</label>
+                                <textarea name="review" class="form-control" rows="4"
+                                          style="font-size: 0.9rem"
+                                          placeholder="Напишите отзыв о книге...">{{ book.review or '' }}</textarea>
+                                <div class="form-text text-muted">
+                                    Максимум 500 символов. Ваш отзыв поможет другим читателям.
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                                    Отмена
+                                </button>
+                                <button type="submit" class="btn btn-snake px-4 fw-medium">
+                                    Сохранить
+                                </button>
+                            </div>
                         </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>У вас пока нет книг в каталоге. Зайдите в <a href="{{ url_for('catalog.catalog') }}">каталог</a> и добавьте первую!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delete_book{{ book.id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">Удалить книгу</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center py-4">
+                        <p class="lead">Удалить книгу <i>"{{ book.name }}"</i> из вашей библиотеки?</p>
+                        <p class="text-muted small">Книга будет удалена из вашего профиля, но вы сможете добавить ее снова.</p>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center gap-3">
+                        <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                            Отмена
+                        </button>
+                        <form method="POST" action="{{ url_for('profile.delete_book', user_id=user_id, book_id=book.id) }}" class="d-inline">
+                            <button type="submit" class="btn btn-danger px-4 fw-medium">
+                                Удалить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endif %}
 
-<a href="{{ url_for('catalog.catalog') }}">← К общему каталогу</a>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.modal').forEach(modal => {
+        new bootstrap.Modal(modal);
+    });
+
+    document.querySelectorAll('.modal form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const modalElement = this.closest('.modal');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

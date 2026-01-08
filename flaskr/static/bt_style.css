@@ -1,11 +1,27 @@
 :root {
-    --snake-green: #367f42da;
-    --snake-green-dark: #2d6336da;
-    --snake-yellow: #ccab09da;
+    --snake-green: rgba(54, 127, 66, 0.85);
+    --snake-green-dark: rgba(45, 99, 54, 0.85);
+    --snake-yellow: rgba(220, 189, 30, 0.85);
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-snake {
+    color: var(--snake-green) !important;
 }
 
 .bg-snake-green {
     background-color: var(--snake-green) !important;
+}
+
+.bg-snake-yellow {
+    background-color: #c9f820ec !important;
+}
+
+.bg-light-subtle {
+    background-color: #f8f9fa !important;
 }
 
 .btn-register {
@@ -31,4 +47,50 @@
     color: var(--snake-yellow) !important;
     background-color: white !important;
     border-color: var(--snake-green) !important;
+}
+
+.btn-outline-snake {
+    color: var(--snake-green-dark) !important;
+    border-color: var(--snake-green-dark) !important;
+}
+
+.btn-outline-snake:focus,
+.btn-outline-snake:active,
+.btn-outline-snake:hover {
+    color: white !important;
+    background-color: var(--snake-green-dark) !important;
+}
+
+.border-snake-green {
+    border-color: var(--snake-green) !important;
+}
+
+.border-snake-dark-green {
+    border-color: var(--snake-green) !important;
+}
+
+.border-snake-yellow {
+    border-color: var(--snake-yellow) !important;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.table-snake {
+    background-color: var(--snake-green-dark) !important;
+    color: white !important;
+}
+
+.table-snake th {
+    border-color: var(--snake-green-dark) !important;
+}
+
+.table-hover tbody tr:hover {
+    --bs-table-hover-bg: rgba(54, 127, 66, 0.06) !important;
+}
+
+.modal-header.bg-snake {
+    background-color: var(--snake-green) !important;
+    color: white !important;
 }
