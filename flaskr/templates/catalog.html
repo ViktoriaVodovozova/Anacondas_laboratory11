@@ -3,22 +3,36 @@
 {% block title %}Каталог книг{% endblock %}
 
 {% block content %}
-<h1>Каталог книг</h1>
-<table id="catalog">
-    <thead>
-        <tr>
-            <th>Название книги</th>
-            <th>Автор</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for book in catalog %}
-            <tr>
-                <td><a href="{{ url_for('catalog.book', book_id=book.id) }}">{{ book.name }}</a></td>
-                <td>{{ book.author }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<p><a href="{{ url_for('home.home') }}">← На главную</a></p>
+<div class="container py-4">
+    <div class="catalog-header bg-snake-s mb-4 text-white">
+        <h1 class="h3 fw-semibold mb-1">Каталог книг</h1>
+        <p class="fs-5 mb-0">Откройте для себя нашу коллекцию литературы</p>
+    </div>
+
+    <div class="card border-0" style="box-shadow: 0 4px 12px rgba(54, 127, 66, 0.3)">
+        <div class="card-body p-4">
+            <div class="books-grid">
+                {% for book in catalog %}
+                    <div class="book-card">
+                        <a href="{{ url_for('catalog.book', book_id=book.id) }}">
+                            <div class="book-content">
+                                <h3 class="book-title">{{ book.name }}</h3>
+                                <div class="book-divider"></div>
+                                <p class="book-author mb-0">
+                                    {{ book.author }}
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <a href="{{ url_for('home.home') }}" class="btn btn-snake btn-lg fw-medium shadow" style="width: 70%">
+            На главную
+        </a>
+    </div>
+</div>
 {% endblock %}
