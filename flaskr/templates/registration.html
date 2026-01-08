@@ -3,30 +3,38 @@
 {% block title %}Регистрация{% endblock %}
 
 {% block content %}
-<h1>Регистрация</h1>
-<form method="post">
-    <div>
-        <label for="email"><strong>E-mail:</strong></label><br>
-        <input type="email" name="email" id="email" required><br><br>
+<div class="container">
+    <div class="card border-0" style="margin: 32px auto;">
+        <div class="card-header bg-snake-green text-center text-white" style="border-radius: 10px;">
+            <h1 class="h3 mb-0">Регистрация</h1>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-medium fs-6">e-mail адрес</label>
+                    <input type="email" class="form-control"
+                           id="email" name="email" placeholder="example@mail.ru" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nickname" class="form-label fw-medium fs-6">Никнэйм</label>
+                    <input type="text" class="form-control" minlength="3" maxlength="30"
+                           id="nickname" name="nickname" placeholder="Имя в веб-библиотеке" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-medium fs-6">Пароль</label>
+                    <input type="password" class="form-control"
+                           id="password" name="password" required placeholder="••••••">
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-register text-white fs-6">
+                        <i>Зарегестрироваться</i>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div>
-        <label for="password"><strong>Пароль:</strong></label><br>
-        <input type="password" name="password" id="password" required><br><br>
-    </div>
-    <div>
-        <label for="nickname"><strong>Никнейм:</strong></label><br>
-        <input type="text" name="nickname" id="nickname" required><br><br>
-    </div>
-    <div>
-        <label for="age"><strong>Возраст:</strong></label><br>
-        <input type="number" name="age" id="age" min="10" max="120"><br><br>
-    </div>
-    <div>
-        <label for="genre"><strong>Любимый жанр:</strong></label><br>
-        <input type="text" name="favorite_genre" id="genre" placeholder="например: фантастика"><br><br>
-    </div>
-    <div>
-        <input type="submit" value="Зарегистрироваться">
-    </div>
-</form>
+</div>
 {% endblock %}

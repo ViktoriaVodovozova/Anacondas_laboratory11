@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, Response, url_for, session
+from flask import Blueprint, render_template, Response, url_for, session, flash
 from werkzeug.utils import redirect
 
 bp = Blueprint('home', __name__, url_prefix='/home')
@@ -13,5 +13,8 @@ def catalog() -> Response:
 
 @bp.route('/profile')
 def profile() -> Response:
-    user_id = session['user_id']
+    user_id = session.get('user_id', None)
+    if user_id is None:
+        flash('Зарегестрируйтесь, чтобы войти в профиль', 'info')
+        return redirect(url_for('home.home'))
     return redirect(url_for('profile.profile', user_id=user_id))

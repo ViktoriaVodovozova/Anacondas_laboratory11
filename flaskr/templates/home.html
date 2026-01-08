@@ -3,9 +3,28 @@
 {% block title %}Anaconda's library{% endblock %}
 
 {% block content %}
-<p>Добро пожаловать в <strong>Anaconda's library</strong> - первую в вебе библиотеку, где книги ищут не черви, а змеи</p>
-<ul id="main_page">
-    <li><a href="{{ url_for('home.profile') }}">Профиль</a></li>
-    <li><a href="{{ url_for('catalog.catalog') }}">Каталог</a></li>
-</ul>
+<div class="container">
+    <div class="card border-0" style="margin: 32px auto;">
+        <div class="card-header bg-snake-green text-center text-white" style="border-radius: 10px;">
+            <h1 class="h3 mb-0">
+                Anaconda's library
+            </h1>
+        </div>
+        <div class="card-body p-4">
+            <p class="p-5 text-center fs-5">
+                Добро пожаловать в <strong>Anaconda's library</strong> —
+                первую в вебе библиотеку, где книги ищут не черви, а змеи
+            </p>
+
+            <div class="d-grid gap-5">
+                <a href="{{ url_for('home.profile') }}" class="btn btn-snake btn-lg fw-medium fs-5 shadow">
+                    Перейти в профиль
+                </a>
+                <a href="{{ url_for('catalog.catalog') }}" class="btn btn-snake btn-lg fw-medium fs-5 shadow">
+                    Посмотреть каталог
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

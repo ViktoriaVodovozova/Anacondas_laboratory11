@@ -1,0 +1,34 @@
+:root {
+    --snake-green: #367f42da;
+    --snake-green-dark: #2d6336da;
+    --snake-yellow: #ccab09da;
+}
+
+.bg-snake-green {
+    background-color: var(--snake-green) !important;
+}
+
+.btn-register {
+    background-color: var(--snake-green) !important;
+}
+
+.btn-register:hover {
+    background-color: var(--snake-green-dark) !important;
+}
+
+.btn-snake:hover {
+    color: white !important;
+    border-color: var(--snake-yellow) !important;
+    background-color: var(--snake-green-dark) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 8px rgba(54, 127, 66, 0.3) !important;
+}
+
+.btn-snake:focus,
+.btn-snake:active,
+.btn-snake {
+    color: var(--snake-yellow) !important;
+    background-color: white !important;
+    border-color: var(--snake-green) !important;
+}
