@@ -3,20 +3,47 @@
 {% block title %}{{ book.name }}{% endblock %}
 
 {% block content %}
-<h3>{{ book.name }}</h3>
-<p>Автор: {{ book.author }}</p>
-<p>Год издания: {{ book.year }}</p>
-<p>Жанр: {{ book.genre }}</p>
-<p>{{ book.annotation }}</p>
+<div class="container py-4">
+    <div class="bg-snake-s mb-4 text-white">
+        <div class="d-flex align-items-center">
+            <div class="bg-white text-snake p-3 rounded-circle shadow me-3" style="width: 30px; height: 30px;">
+                <i class="bi bi-book"></i>
+            </div>
+            <div>
+                <h1 class="h3 fw-semibold mb-1">{{ book.name }}</h1>
+                <p class="fs-5 mb-0">Автор <i>{{ book.author }}</i></p>
+            </div>
+        </div>
+    </div>
 
-<!-- Кнопка "Добавить в мой каталог" -->
-{% if 'user_id' in session %}
-<form method="POST" action="{{ url_for('catalog.add_book', book_id=book.id) }}">
-    <button type="submit">Добавить в мой каталог</button>
-</form>
-{% else %}
-    <p><a href="{{ url_for('register.register') }}">Зарегистрируйтесь</a>, чтобы добавлять книги в свой каталог.</p>
-{% endif %}
+    <div class="snake-border green-g mb-4">
+        <div class="p-4">
+            <div class="d-flex gap-4 mb-3 fw-medium text-snake-dark" style="font-size: 1.1rem;">
+                <p class="pb-0 mb-0">Год издания: {{ book.year or 'Не указан' }}</p>
+                <p class="pb-0 mb-0">Жанр: {{ book.genre or 'Не указан' }}</p>
+            </div>
 
-<a href="{{ url_for('catalog.catalog') }}">← К общему каталогу</a>
+            <h2 class="h4 text-snake fw-bold mb-2 pt-2">Аннотация</h2>
+            <p class="mb-4" style="line-height: 1.6; font-size: 1.1rem;">
+                {% if book.annotation %}
+                    {{ book.annotation }}
+                {% else %}
+                    <span class="text-muted">Аннотация отсутствует</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('catalog.add_book', book_id=book.id) }}" class="text-center">
+        <button type="submit" class="btn btn-add-catalog px-4 py-2 btn-lg fw-medium w-50">
+            Добавить в личный каталог
+        </button>
+    </form>
+
+    <div class="text-center pt-2 mt-4">
+        <a href="{{ url_for('catalog.catalog') }}" class="btn btn-snake btn-lg px-4 py-2 fw-medium w-50">
+            К общему каталогу
+        </a>
+    </div>
+</div>
 {% endblock %}

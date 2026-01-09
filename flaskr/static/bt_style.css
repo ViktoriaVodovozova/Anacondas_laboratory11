@@ -1,11 +1,16 @@
 :root {
     --snake-green: rgba(54, 127, 66, 0.85);
     --snake-green-dark: rgba(45, 99, 54, 0.85);
+    --snake-green-darker: rgba(36, 74, 42, 0.85);
     --snake-yellow: rgba(220, 189, 30, 0.85);
 }
 
 .text-snake {
     color: var(--snake-green) !important;
+}
+
+.text-snake-dark {
+    color: var(--snake-green-darker) !important;
 }
 
 .bg-snake-green {
@@ -56,6 +61,21 @@
     background-color: var(--snake-green-dark) !important;
 }
 
+.btn-add-catalog {
+    background: linear-gradient(135deg, var(--snake-green), var(--snake-green-dark)) !important;
+    border: 1px solid var(--snake-green-dark) !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 4px rgba(54, 127, 66, 0.15) !important;
+}
+
+.btn-add-catalog:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(54, 127, 66, 0.25) !important;
+    background: linear-gradient(135deg, var(--snake-green-dark), rgba(40, 90, 48, 0.95)) !important;
+    border-color: var(--snake-green) !important;
+}
+
 .border-snake-green {
     border-color: var(--snake-green) !important;
 }
@@ -70,6 +90,31 @@
 
 .border-dashed {
     border-style: dashed !important;
+}
+
+.snake-border {
+    position: relative;
+    border-radius: 5px !important;
+    padding: 10px 2rem !important;
+    background: white !important;
+}
+
+.snake-border.yellow-g::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #f4c807, #d3b73f);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.snake-border.green-g::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #2c9c02, #5cc63d);
+    border-radius: inherit;
+    z-index: -1;
 }
 
 .table-snake {
