@@ -6,7 +6,8 @@
 <div class="container py-4">
     <div class="bg-snake-s mb-4 text-white">
         <div class="d-flex align-items-center">
-            <div class="bg-white text-snake p-3 rounded-circle shadow me-3" style="width: 30px; height: 30px;">
+            <div class="bg-white text-snake rounded-circle shadow me-3 d-flex align-items-center justify-content-center"
+                style="width: 36px; height: 36px; font-size: 26px;">
                 <i class="bi bi-book"></i>
             </div>
             <div>
@@ -24,7 +25,7 @@
             </div>
 
             <h2 class="h4 text-snake fw-bold mb-2 pt-2">Аннотация</h2>
-            <p class="mb-4" style="line-height: 1.6; font-size: 1.1rem;">
+            <p style="line-height: 1.6; font-size: 1.1rem;">
                 {% if book.annotation %}
                     {{ book.annotation }}
                 {% else %}

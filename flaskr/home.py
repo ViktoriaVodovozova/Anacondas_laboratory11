@@ -5,7 +5,9 @@ bp = Blueprint('home', __name__, url_prefix='/home')
 
 @bp.route('/')
 def home() -> str:
-    return render_template('home.html')
+    user_id = session.get('inapp_user_id', None)
+    is_auth = True if (user_id is not None) else False
+    return render_template('home.html', is_auth=is_auth)
 
 @bp.route('/catalog')
 def catalog() -> Response:
@@ -13,8 +15,8 @@ def catalog() -> Response:
 
 @bp.route('/profile')
 def profile() -> Response:
-    user_id = session.get('user_id', None)
+    user_id = session.get('inapp_user_id', None)
     if user_id is None:
-        flash('Зарегестрируйтесь, чтобы войти в профиль', 'info')
+        flash('Войдите в систему для просмотра профиля', 'info')
         return redirect(url_for('home.home'))
     return redirect(url_for('profile.profile', user_id=user_id))

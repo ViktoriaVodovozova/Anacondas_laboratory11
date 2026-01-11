@@ -25,11 +25,11 @@
     background-color: #f8f9fa !important;
 }
 
-.btn-register {
+.btn-auth {
     background-color: var(--snake-green) !important;
 }
 
-.btn-register:hover {
+.btn-auth:hover {
     background-color: var(--snake-green-dark) !important;
 }
 

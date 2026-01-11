@@ -6,37 +6,40 @@
 <div class="container" style="margin: 32px auto;">
     <div class="d-grid gap-5 d-flex-column justify-content-between" style="grid-template-columns: 40% 50%;">
         <div class="card-header mb-0 px-2 border border-3 bg-snake-s d-flex align-items-center justify-content-center text-center text-white" style="border-radius: 10px;">
-            <h1 class="h3 fw-semibold mb-0">Профиль пользователя <i>{{ nickname }}</i></h1>
+            <h1 class="h3 fw-semibold mb-0">Профиль пользователя <i>{{ user.nickname }}</i></h1>
         </div>
         <div class="d-flex flex-column gap-4 mb-0" style="font-size: 1.1rem">
             <div class="d-flex snake-border green-g shadow-sm">
                 <div class="fw-medium" style="flex: 0 0 50%">e-mail</div>
-                <div class="mb-0 flex-grow-1">{{ email }}</div>
+                <div class="mb-0 flex-grow-1">{{ user.email }}</div>
             </div>
             <div class="d-flex snake-border yellow-g shadow-sm">
                 <div class="fw-medium" style="flex: 0 0 50%">Никнэйм</div>
-                <div class="mb-0 flex-grow-1">{{ nickname }}</div>
+                <div class="mb-0 flex-grow-1">{{ user.nickname }}</div>
             </div>
             <div class="d-flex snake-border green-g shadow-sm">
                 <div class="fw-medium " style="flex: 0 0 50%">Возраст</div>
-                <div class="mb-0 flex-grow-1">{{ age or '---' }}</div>
+                <div class="mb-0 flex-grow-1">{{ user.age or '---' }}</div>
             </div>
             <div class="d-flex snake-border yellow-g py-2 px-4 shadow-sm">
                 <div class="fw-medium" style="flex: 0 0 50%">Любимый жанр</div>
-                <div class="mb-0 flex-grow-1">{{ genre or '---' }}</div>
+                <div class="mb-0 flex-grow-1">{{ user.genre or '---' }}</div>
             </div>
         </div>
     </div>
 
-    <div class="my-5 d-flex justify-content-start">
-        <a href="{{ url_for('home.home') }}" class="btn btn-snake btn-lg fw-medium shadow" style="width: 40%">
+    <div class="my-5 d-flex justify-content-between gap-3">
+        <a href="{{ url_for('home.home') }}" class="btn btn-snake btn-lg fw-medium shadow" style="width: 40%;">
             На главную
+        </a>
+        <a href="{{ url_for('profile.logout', user_id=user.id) }}" class="btn btn-snake btn-lg fw-medium shadow" style="width: 50%;">
+            Выйти из аккаунта
         </a>
     </div>
 
     <section class="mb-5">
         <header class="border-bottom border-3 pb-2 mb-4">
-            <h2 class="class h3 fw-semibold text-snake d-flex align-items-center">
+            <h2 class="h3 fw-semibold text-snake d-flex align-items-center">
                 Личный каталог
             </h2>
         </header>
@@ -54,7 +57,7 @@
                     </thead>
                     <tbody>
                         {% for book in user_books %}
-                            <tr class>
+                            <tr>
                                 <td class="fs-6">{{ book.name }}</td>
                                 <td class="fs-6">{{ book.author }}</td>
                                 <td>
@@ -101,7 +104,7 @@
                 <div class="card-body text-center py-5">
                     <p class="mb-3 fs-4 fw-medium">Ваша библиотека пуста</p>
                     <p class="lead text-muted mb-4 fs-5">У вас пока нет книг в каталоге</p>
-                    <a href="{{ url_for('catalog.catalog') }}" class="btn btn-snake btn-lg px-5 py-3 fw-medium shadow">
+                    <a href="{{ url_for('catalog.catalog') }}" class="btn btn-snake btn-lg px-5 fw-medium shadow">
                         Перейти в каталог и добавить первую книгу
                     </a>
                     <div class="mt-4 text-muted">
@@ -123,14 +126,14 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="{{ url_for('profile.update_book', user_id=user_id, book_id=book.id) }}">
+                        <form method="POST" action="{{ url_for('profile.update_book', user_id=user.id, book_id=book.id) }}">
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Оценка</label>
                                 <input type="number" name="rating" class="form-control form-control-lg text-center"
                                        style="font-size: 0.95rem"
-                                       min="1" max="10" value="{{ book.rating or '' }}" placeholder="1-10">
+                                       min="{{ RATING_MAX }}" max="10" value="{{ book.rating or '' }}" placeholder="{{ RATING_MIN }}–{{ RATING_MAX }}">
                                 <div class="form-text text-muted">
-                                    Поставьте оценку от 1 до 10.
+                                    Поставьте оценку от {{ RATING_MIN }} до {{ RATING_MAX }}.
                                 </div>
                             </div>
 
@@ -140,7 +143,7 @@
                                           style="font-size: 0.9rem"
                                           placeholder="Напишите отзыв о книге...">{{ book.review or '' }}</textarea>
                                 <div class="form-text text-muted">
-                                    Максимум 500 символов. Ваш отзыв поможет другим читателям.
+                                    Ваш отзыв поможет другим читателям.
                                 </div>
                             </div>
 
@@ -172,7 +175,7 @@
                         <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
                             Отмена
                         </button>
-                        <form method="POST" action="{{ url_for('profile.delete_book', user_id=user_id, book_id=book.id) }}" class="d-inline">
+                        <form method="POST" action="{{ url_for('profile.delete_book', user_id=user.id, book_id=book.id) }}" class="d-inline">
                             <button type="submit" class="btn btn-danger px-4 fw-medium">
                                 Удалить
                             </button>

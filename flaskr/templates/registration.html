@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="card border-0" style="margin: 32px auto;">
-        <div class="card-header bg-snake-green text-center text-white" style="border-radius: 10px;">
+        <div class="card-header border border-3 bg-snake-s text-center text-white py-4" style="border-radius: 10px;">
             <h1 class="h3 mb-0">Регистрация</h1>
         </div>
         <div class="card-body p-4">
@@ -18,7 +18,7 @@
 
                 <div class="mb-3">
                     <label for="nickname" class="form-label fw-medium fs-6">Никнэйм</label>
-                    <input type="text" class="form-control" minlength="3" maxlength="30"
+                    <input type="text" class="form-control" minlength="{{ NICKNAME_MIN_LENGTH }}" maxlength="{{ NICKNAME_MAX_LENGTH }}"
                            id="nickname" name="nickname" placeholder="Имя в веб-библиотеке" required>
                 </div>
 
@@ -28,12 +28,29 @@
                            id="password" name="password" required placeholder="••••••">
                 </div>
 
+                <div class="mb-3">
+                    <label for="age" class="form-label fw-medium fs-6">Возраст</label>
+                    <input type="number" class="form-control" min="{{ AGE_MIN }}" max="{{ AGE_MAX }}"
+                           id="age" name="age" required placeholder="19">
+                </div>
+
+                <div class="mb-3">
+                    <label for="genre" class="form-label fw-medium fs-6">Никнэйм</label>
+                    <input type="text" class="form-control" maxlength="{{ FAV_GENRE_MAX_LENGTH }}"
+                           id="genre" name="genre" placeholder="Любимый жанр, например, эпистолярный роман">
+                </div>
+
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-register text-white fs-6">
+                    <button type="submit" class="btn btn-auth text-white fs-6">
                         <i>Зарегестрироваться</i>
                     </button>
                 </div>
             </form>
+            <div class="mt-5 d-flex align-items-start" style="width: 181px">
+                <a href="{{ url_for('home.home') }}" class="btn btn-snake btn-lg fw-medium shadow w-100">
+                    На главную
+                </a>
+            </div>
         </div>
     </div>
 </div>

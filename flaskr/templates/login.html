@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card border-0" style="margin: 32px auto;">
+        <div class="card-header border border-3 bg-snake-s text-center text-white py-4" style="border-radius: 10px;">
+            <h1 class="h3 mb-0">Вход</h1>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-medium fs-6">e-mail адрес</label>
+                    <input type="email" class="form-control"
+                           id="email" name="email" placeholder="example@mail.ru" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-medium fs-6">Пароль</label>
+                    <input type="password" class="form-control"
+                           id="password" name="password" required placeholder="••••••">
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-auth text-white fs-6" style="width: 181px">
+                        <i>Войти</i>
+                    </button>
+                </div>
+            </form>
+            <div class="mt-5 d-flex align-items-start" style="width: 181px">
+                <a href="{{ url_for('home.home') }}" class="btn btn-snake btn-lg fw-medium shadow w-100">
+                    На главную
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -24,6 +24,17 @@
                     Посмотреть каталог
                 </a>
             </div>
+
+            {% if not is_auth %}
+                <div class="pt-5 d-flex flex-column align-items-start gap-3" style="width: 185px">
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-auth text-white fs-6 w-100">
+                        <i>Зарегестрироваться</i>
+                    </a>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-auth text-white fs-6 w-100">
+                        <i>Войти в аккаунт</i>
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

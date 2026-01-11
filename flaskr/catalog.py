@@ -35,7 +35,7 @@ def book(book_id: int) -> Response | str:
 def add_book(book_id: int) -> Response:
     db: SQLAlchemy = current_app.extensions['db']
 
-    user_id = session.get('user_id', None)
+    user_id = session.get('inapp_user_id', None)
     if user_id is None:
         flash('Войдите в систему для возможности добавления книг в личный каталог', 'info')
         return redirect(url_for('catalog.book', book_id=book_id))
