@@ -19,11 +19,23 @@
             </div>
             <div class="d-flex snake-border green-g shadow-sm">
                 <div class="fw-medium " style="flex: 0 0 50%">Возраст</div>
-                <div class="mb-0 flex-grow-1">{{ user.age or '---' }}</div>
+                <div class="mb-0 flex-grow-1">
+                    {% if user.age %}
+                        {{ user.age }}
+                    {% else %}
+                        <span class="text-muted">не указан</span>
+                    {% endif %}
+                </div>
             </div>
             <div class="d-flex snake-border yellow-g py-2 px-4 shadow-sm">
                 <div class="fw-medium" style="flex: 0 0 50%">Любимый жанр</div>
-                <div class="mb-0 flex-grow-1">{{ user.genre or '---' }}</div>
+                <div class="mb-0 flex-grow-1">
+                    {% if user.genre %}
+                        {{ user.genre }}
+                    {% else %}
+                        <span class="text-muted">не указан</span>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -64,7 +76,7 @@
                                     {% if book.rating %}
                                         <div class="d-flex align-items-center">
                                             <span class="badge bg-snake-yellow text-dark fs-6 p-2 me-2" style="min-width: 40px;">
-                                                {{ book.rating }}/10
+                                                {{ book.rating }}/{{ RATING_MAX }}
                                             </span>
                                         </div>
                                     {% else %}
@@ -72,7 +84,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <div style="max-height: 80px; overflow-y: auto; line-height: 1.5;">
+                                    <div style="max-height: 120px; overflow-y: auto; line-height: 1.5;">
                                         {% if book.review %}
                                             {{ book.review }}
                                         {% else %}
@@ -131,7 +143,7 @@
                                 <label class="form-label fw-bold">Оценка</label>
                                 <input type="number" name="rating" class="form-control form-control-lg text-center"
                                        style="font-size: 0.95rem"
-                                       min="{{ RATING_MAX }}" max="10" value="{{ book.rating or '' }}" placeholder="{{ RATING_MIN }}–{{ RATING_MAX }}">
+                                       min="{{ RATING_MIN }}" max="{{ RATING_MAX }}" value="{{ book.rating or '' }}" placeholder="{{ RATING_MIN }}–{{ RATING_MAX }}">
                                 <div class="form-text text-muted">
                                     Поставьте оценку от {{ RATING_MIN }} до {{ RATING_MAX }}.
                                 </div>

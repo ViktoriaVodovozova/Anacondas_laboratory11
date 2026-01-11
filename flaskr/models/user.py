@@ -18,4 +18,4 @@ class User(Base):
     nickname: Mapped[str] = mapped_column(String(NICKNAME_MAX_LENGTH), nullable=False)
     password: Mapped[str] = mapped_column(String(PASSWORD_MAX_LENGTH), nullable=False)  # it should be hash
     age: Mapped[int] = mapped_column(Integer, nullable=True)
-    genre: Mapped[str] = mapped_column(String(GENRE_MAX_LENGTH))
+    genre: Mapped[str] = mapped_column(String(GENRE_MAX_LENGTH), nullable=True)

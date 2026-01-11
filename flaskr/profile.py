@@ -1,3 +1,4 @@
+import re
 from flask import Blueprint, current_app, render_template, request, url_for, Response, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
@@ -63,12 +64,16 @@ def update_book(user_id: int, book_id: int) -> Response:
         flash('Книга либо не существует, либо не добавлена в личный каталог', 'info')
         return redirect(url_for('profile.profile', user_id=user_id))
 
-    new_rating = request.form.get('rating', None)
-    new_review = request.form.get('review', None)
+    new_rating = request.form.get('rating', '') or None
+    new_review = request.form.get('review', '') or None
 
-    if not isinstance(new_review, int) or not (UserBook.RATING_MIN <= new_review <= UserBook.RATING_MAX):
-        errors.append('Оценка должна быть целым числом от 1 до 10')
-    if len(new_review) > UserBook.REVIEW_MAX_LENGTH:
+    if new_rating is not None:
+        if (not re.match(r'^\d+$', new_rating) or
+                not (UserBook.RATING_MIN <= int(new_rating) <= UserBook.RATING_MAX)):
+            errors.append('Оценка должна быть целым числом от 1 до 10')
+        else:
+            new_rating = int(new_rating)
+    if (new_review is not None) and (len(new_review) > UserBook.REVIEW_MAX_LENGTH):
         errors.append(f'Отзыв превышает допустимое количество символов ({UserBook.REVIEW_MAX_LENGTH})')
     if errors:
         for msg in errors:

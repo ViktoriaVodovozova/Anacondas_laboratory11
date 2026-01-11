@@ -1,9 +1,10 @@
-from sqlalchemy import select
+from sqlalchemy import select, and_
 from flask import Blueprint, render_template, current_app, session, Response, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import redirect
 from flaskr.models.book import Book
+from flaskr.models.user import User
 from flaskr.models.user_book import UserBook
 
 bp = Blueprint('catalog', __name__, url_prefix='/catalog')
@@ -24,8 +25,19 @@ def catalog() -> Response | str:
 def book(book_id: int) -> Response | str:
     db: SQLAlchemy = current_app.extensions['db']
     try:
-        book = db.session.get_one(Book, book_id)
-        return render_template('book.html', book=book)
+        book = db.session.get(Book, book_id)
+        stmt = (
+            select(User.nickname, UserBook.review)
+            .join(UserBook, User.id == UserBook.user_id)
+            .where(
+                and_(
+                    UserBook.book_id == book_id,
+                    UserBook.review.is_not(None)
+                )
+            )
+        )
+        reviews = db.session.execute(stmt).all()
+        return render_template('book.html', book=book, reviews=reviews)
     except SQLAlchemyError as _:
         db.session.rollback()
         flash('Книга не найдена в общем каталоге', 'info')

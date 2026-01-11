@@ -14,6 +14,9 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register() -> str | Response:
+    if session.get('inapp_user_id', None) is not None:
+        flash('Вы уже вошли в систему, выйдите из текущего аккаунта, чтобы создать новый', 'info')
+        return redirect(url_for('home.home'))
     if request.method == 'GET':
         return render_template('registration.html')
 
@@ -23,8 +26,8 @@ def register() -> str | Response:
     email = request.form.get('email', '').strip()
     nickname = request.form.get('nickname', '').strip()
     password = request.form.get('password', '').strip()
-    age = request.form.get('age', None)
-    genre = request.form.get('genre', None)
+    age = request.form.get('age', '') or None
+    genre = request.form.get('genre', '') or None
 
     if not re.match(r'^[^@]+@[^@]+.\w+$', email):
         errors.append('Неверный e-mail')
@@ -32,8 +35,12 @@ def register() -> str | Response:
         errors.append('Неверный nickname')
     if not password:
         errors.append('Введите пароль')
-    if age is not None and (not re.match(r'^\d+$', age) or not (User.AGE_MIN <= int(age) <= User.AGE_MAX)):
-        errors.append('Неверно указан возраст')
+    if age is not None:
+        if (not re.match(r'^\d+$', age)
+                or not (User.AGE_MIN <= int(age) <= User.AGE_MAX)):
+            errors.append('Неверно указан возраст')
+        else:
+            age = int(age)
     if genre is not None and len(genre) > User.GENRE_MAX_LENGTH:
         errors.append('Неверно указан любимый жанр')
     if errors:
@@ -45,7 +52,7 @@ def register() -> str | Response:
         email=email,
         nickname=nickname,
         password=generate_password_hash(password),
-        age=int(age),
+        age=age,
         genre=genre
     )
     try:
@@ -60,16 +67,16 @@ def register() -> str | Response:
             flash('Пользователь с таким e-mail уже существует', 'error')
         else:
             flash('Ошибка регистрации', 'error')
+        print(str(e))
         return redirect(url_for('auth.register'))
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login() -> str | Response:
-    if request.method == 'GET':
-        return render_template('login.html')
-
     if session.get('inapp_user_id', None) is not None:
         flash('Вы уже вошли в систему', 'info')
         return redirect(url_for('home.home'))
+    if request.method == 'GET':
+        return render_template('login.html')
 
     db: SQLAlchemy = current_app.extensions['db']
 
