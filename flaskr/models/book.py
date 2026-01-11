@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String, Integer
-from flaskr.db import Base
+from flaskr.database.db import Base
 
 class Book(Base):
     __tablename__ = 'books'

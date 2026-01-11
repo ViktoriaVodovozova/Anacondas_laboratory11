@@ -1,20 +1,24 @@
 import os.path
+
+import click
 from flask import Flask, redirect, url_for, Response
 from flaskr.models.user_book import UserBook
 from flaskr.models.user import User
 
-def create_app() -> Flask:
+def create_app(test_config: dict = None) -> Flask:
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI=f'sqlite:///{os.path.join(app.instance_path, 'app_database.db')}'
-    )
     os.makedirs(app.instance_path, exist_ok=True)
 
+    if test_config is None:
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        click.echo('using test config')
+        app.config.from_mapping(test_config)
+
     from . import (
-        db as dbc,
         home, auth, catalog, profile
     )
+    from flaskr.database import db as dbc
     db = dbc.create_db()
     db.init_app(app)
     app.register_blueprint(home.bp)
@@ -42,6 +46,3 @@ def create_app() -> Flask:
         return redirect(url_for('home.home'))
 
     return app
-
-# write `flask --app flaskr init-db` in terminal to initialize database
-# write `flask --app flaskr run --debug` in terminal to run

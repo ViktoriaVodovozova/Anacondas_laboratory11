@@ -1,8 +1,8 @@
 import unittest
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import select, and_
-from flaskr.db import create_db
+from sqlalchemy import select
+from flaskr.database.db import create_db
 from flaskr.models.user import User
 from flaskr.models.book import Book
 from flaskr.models.user_book import UserBook

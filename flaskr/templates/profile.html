@@ -152,7 +152,7 @@
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Отзыв</label>
                                 <textarea name="review" class="form-control" rows="4"
-                                          style="font-size: 0.9rem"
+                                          style="font-size: 0.9rem" maxlength="{{ REVIEW_MAX_LEN }}"
                                           placeholder="Напишите отзыв о книге...">{{ book.review or '' }}</textarea>
                                 <div class="form-text text-muted">
                                     Ваш отзыв поможет другим читателям.
@@ -181,7 +181,7 @@
                     </div>
                     <div class="modal-body text-center py-4">
                         <p class="lead">Удалить книгу <i>"{{ book.name }}"</i> из вашей библиотеки?</p>
-                        <p class="text-muted small">Книга будет удалена из вашего профиля, но вы сможете добавить ее снова.</p>
+                        <p class="text-muted small">Книга и отзыв к ней будут удалены из вашего профиля, но вы сможете добавить их снова.</p>
                     </div>
                     <div class="modal-footer d-flex justify-content-center gap-3">
                         <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
