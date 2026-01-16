@@ -14,9 +14,10 @@ def create_app(test_config: dict = None) -> Flask:
         click.echo('using test config')
         app.config.from_mapping(test_config)
 
-    from . import (
-        home, auth, catalog, profile
-    )
+    from flaskr.blueprints import catalog
+    from flaskr.blueprints import home
+    from flaskr.blueprints import auth
+    from flaskr.blueprints import profile
     from flaskr.database import db as dbc
     db = dbc.create_db()
     db.init_app(app)
