@@ -5,7 +5,6 @@ from flask import (
 )
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-
 from flaskr.models.user import User
 from sqlalchemy import select
 from werkzeug.security import generate_password_hash, check_password_hash

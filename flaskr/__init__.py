@@ -1,5 +1,4 @@
 import os.path
-
 import click
 from flask import Flask, redirect, url_for, Response
 from flaskr.models.user_book import UserBook
